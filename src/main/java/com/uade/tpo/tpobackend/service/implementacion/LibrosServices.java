@@ -1,11 +1,13 @@
-package com.uade.tpo.tpobackend.service;
+package com.uade.tpo.tpobackend.service.implementacion;
 
 import java.util.ArrayList;
 
+
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.repository.LibrosRepository;
+import com.uade.tpo.tpobackend.service.INT.LibrosServiceInterface;
 
-public class LibrosServices {
+public class LibrosServices implements LibrosServiceInterface{
 
     public ArrayList<Libro> getLibros() {
         LibrosRepository librosRepository = new LibrosRepository();
@@ -18,8 +20,9 @@ public class LibrosServices {
         return librosRepository.getLibrosById(librosId);
     }
 
-    public String createLibro(String entity) {
-        LibrosRepository librosRepository = new LibrosRepository();
+    public Libro createLibro(Libro entity) {
+
+
 
         return entity;
     }
