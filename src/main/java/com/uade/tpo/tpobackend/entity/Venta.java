@@ -8,6 +8,8 @@ import java.util.List;
 @Data
 @Entity
 public class Venta {
+    public Venta() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +22,6 @@ public class Venta {
     @OneToMany 
     @JoinColumn(name = "venta_id")
     private List<Libro> libros;
-
-    
-    public Venta() {}
-
     
     public double calcularPrecioTotal() {
         double precioTotal = 0.0;

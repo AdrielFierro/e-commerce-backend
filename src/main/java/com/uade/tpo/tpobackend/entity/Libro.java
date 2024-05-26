@@ -3,13 +3,13 @@ package com.uade.tpo.tpobackend.entity;
 import java.util.ArrayList;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @Entity
 public class Libro {
+    public Libro(){
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

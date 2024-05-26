@@ -12,6 +12,9 @@ import lombok.Data;
 @Entity
 public class Categoria {
 
+    public Categoria(){
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
