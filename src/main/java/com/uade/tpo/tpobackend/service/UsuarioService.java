@@ -6,4 +6,5 @@ import com.uade.tpo.tpobackend.entity.Usuario;
 public interface UsuarioService {
     Usuario findById(int id);
     Usuario findByNombre(String nombre);
+    Usuario crearUsuario (Usuario usuario);
 }
