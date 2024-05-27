@@ -5,4 +5,5 @@ import com.uade.tpo.tpobackend.entity.Categoria;
 
 public interface CategoriaService {
     Categoria findById(int id);
+    Categoria crearCategoria(Categoria categoria);
 }

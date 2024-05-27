@@ -17,4 +17,9 @@ public class CategoriaServiceImpl implements CategoriaService {
         return categoriaRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public Categoria crearCategoria(Categoria categoria) {
+        return categoriaRepository.save(categoria); //inserta o actualiza una fila en la base de datos
+    }
+
 }
