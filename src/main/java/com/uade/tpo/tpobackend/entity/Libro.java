@@ -1,9 +1,10 @@
 package com.uade.tpo.tpobackend.entity;
 
-import java.util.ArrayList;
+
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,7 +20,7 @@ public class Libro {
     private String nombre;
 
     @Column
-    private String desc;
+    private String descripcion;
 
     @Column
     private Double precio;
@@ -29,10 +30,10 @@ public class Libro {
 
     @OneToMany
     @JoinColumn(name = "categoria_id") 
-    private ArrayList<Categoria> cate;
+    private List<Categoria> cate;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario duenio;
 
 }

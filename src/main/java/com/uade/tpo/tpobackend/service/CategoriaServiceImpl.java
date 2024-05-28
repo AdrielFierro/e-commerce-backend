@@ -2,7 +2,12 @@
 package com.uade.tpo.tpobackend.service;
 
 import com.uade.tpo.tpobackend.entity.Categoria;
+
 import com.uade.tpo.tpobackend.repository.CategoriaRepository;
+
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +27,9 @@ public class CategoriaServiceImpl implements CategoriaService {
         return categoriaRepository.save(categoria); //inserta o actualiza una fila en la base de datos
     }
 
+    @Override
+    public List<Categoria> getCategorias(){
+        return categoriaRepository.findAll();
+    }
+ 
 }

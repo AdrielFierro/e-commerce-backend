@@ -21,5 +21,5 @@ public class Categoria {
     @Column
     private String nombre;
     @Column
-    private String desc;
+    private String descripcion;
 }

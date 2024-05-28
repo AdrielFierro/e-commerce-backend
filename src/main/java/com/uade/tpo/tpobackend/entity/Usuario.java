@@ -1,6 +1,6 @@
 package com.uade.tpo.tpobackend.entity;
 
-import java.util.ArrayList;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
-
+import java.util.List;
 @Data
 @Entity
 public class Usuario {
@@ -30,9 +30,9 @@ public class Usuario {
     private Double saldo;
     @OneToMany
     @JoinColumn(name = "libro_id")
-    private ArrayList<Libro> librosPublicados;
+    private List<Libro> librosPublicados;
     @OneToMany
     @JoinColumn(name = "venta_id")
-    private ArrayList<Venta> ventas;
+    private List<Venta> ventas;
 
 }
