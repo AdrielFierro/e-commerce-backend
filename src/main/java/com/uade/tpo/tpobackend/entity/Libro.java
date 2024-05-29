@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Data
 @Entity
 public class Libro {
@@ -32,8 +34,11 @@ public class Libro {
     @JoinColumn(name = "categoria_id") 
     private List<Categoria> cate;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario duenio;
+    @Column(name = "usuarioId") 
+    private int usuarioId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuarioId", insertable = false, updatable = false)
+    @JsonIgnore
+    private Usuario duenio;
 }

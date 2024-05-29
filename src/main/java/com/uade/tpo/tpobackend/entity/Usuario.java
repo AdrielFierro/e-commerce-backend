@@ -27,11 +27,11 @@ public class Usuario {
     private Boolean admin;
     @Column
     private Double saldo;
-    @OneToMany
-    @JoinColumn(name = "libro_id")
+    
+    @OneToMany(mappedBy = "duenio")
     private List<Libro> librosPublicados;
     @OneToMany
     @JoinColumn(name = "venta_id")
-    private List<Venta> ventas;
+    private List<Venta> ventas;//-
 
 }
