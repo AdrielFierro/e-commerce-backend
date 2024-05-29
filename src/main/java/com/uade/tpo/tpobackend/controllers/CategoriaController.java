@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.uade.tpo.tpobackend.entity.Categoria;
 import com.uade.tpo.tpobackend.service.CategoriaService;
+import com.uade.tpo.tpobackend.exceptions.*;
+import com.uade.tpo.tpobackend.dataObjects.*;
+import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -36,7 +37,15 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public Categoria crearCategoria(@RequestBody Categoria categoria) {
-        return categoriaService.crearCategoria(categoria);
+    public ResponseEntity<Object> crearCategoria(@RequestBody CategoryRequest categoria) 
+        throws CategoryDuplicateException {
+            Categoria cat= new Categoria();
+            cat.setDescripcion(categoria.getDescripcion());
+            cat.setNombre(categoria.getNombre());
+
+            System.out.println(categoria);
+            Categoria result= categoriaService.crearCategoria(cat);
+        return ResponseEntity.created(URI.create("/categorias/"+result.getId())).body(result);
+        // categoriaService.crearCategoria(categoria)
     }
 }
