@@ -1,23 +1,20 @@
 package com.uade.tpo.tpobackend.controllers;
 
-// import com.uade.tpo.tpobackend.dataObjects.LibroRequest;
-import com.uade.tpo.tpobackend.entity.Categoria;
 import com.uade.tpo.tpobackend.entity.Libro;
-// import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.exceptions.LibroInexistenteException;
 import com.uade.tpo.tpobackend.service.LibroService;
-// import com.uade.tpo.tpobackend.service.UsuarioService;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Map;
+
 
 
 
@@ -47,26 +44,6 @@ public class LibroController {
     public List<Libro> getLibrosPorCategoria(@PathVariable String categoria) {
         List<Libro> conjunto = libroService.getLibros();
 
-
-        for (Libro libro : conjunto) {
-            List<Categoria> categoriasLibro = libro.getCate();
-            for (Categoria cat : categoriasLibro) {
-                if (cat.getNombre().equalsIgnoreCase(categoria)) {
-                    System.out.println(true);
-                    filtro.add(libro);
-                    break;
-                }
-            }
-        }
-
-        return filtro;
-    }
-
-    @PostMapping
-    public Libro crearLibro(@RequestBody Libro libro) {
-
-        return libroService.createLibro(libro);
-
         List<Libro> filtro = conjunto.stream()
                                     .filter(libro -> libro.getCate()
                                                         .stream()
@@ -91,8 +68,6 @@ public class LibroController {
     
     
 
-
-
     @PostMapping
     public ResponseEntity<Object> crearLibro(@RequestBody Libro libro) throws LibroInexistenteException {
         Libro nuevoLibro = libroService.createLibro(libro);
@@ -109,5 +84,5 @@ public class LibroController {
     }
 
 
-
+    
 }

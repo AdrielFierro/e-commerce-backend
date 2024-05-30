@@ -12,8 +12,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -51,6 +49,26 @@ public class UsuarioController {
     @GetMapping("/{id}/libros")
     public List<Libro> obtenerLibrosPublicados(@PathVariable int id) {
         return usuarioService.obtenerLibrosPublicados(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable int id, @RequestBody Usuario usuarioActualizado) {
+        Usuario usuario = usuarioService.actualizarUsuario(id, usuarioActualizado);
+        if (usuario != null) {
+            return ResponseEntity.ok(usuario);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Usuario> actualizarParcialmenteUsuario(@PathVariable int id, @RequestBody Usuario usuarioActualizado) {
+        Usuario usuario = usuarioService.actualizarParcialmenteUsuario(id, usuarioActualizado);
+        if (usuario != null) {
+            return ResponseEntity.ok(usuario);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

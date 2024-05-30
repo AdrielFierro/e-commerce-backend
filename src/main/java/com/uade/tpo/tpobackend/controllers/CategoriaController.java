@@ -48,4 +48,24 @@ public class CategoriaController {
         return ResponseEntity.created(URI.create("/categorias/"+result.getId())).body(result);
         // categoriaService.crearCategoria(categoria)
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Categoria> actualizarCategoria(@PathVariable int id, @RequestBody Categoria categoriaActualizada) {
+        Categoria categoria = categoriaService.actualizarCategoria(id, categoriaActualizada);
+        if (categoria != null) {
+            return ResponseEntity.ok(categoria);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Categoria> actualizarParcialmenteCategoria(@PathVariable int id, @RequestBody Categoria categoriaActualizada) {
+        Categoria categoria = categoriaService.actualizarParcialmenteCategoria(id, categoriaActualizada);
+        if (categoria != null) {
+            return ResponseEntity.ok(categoria);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
