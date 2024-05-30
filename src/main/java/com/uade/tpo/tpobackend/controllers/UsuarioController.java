@@ -7,13 +7,13 @@ import com.uade.tpo.tpobackend.entity.Venta;
 import com.uade.tpo.tpobackend.service.UsuarioService;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @RequestMapping("/usuarios")
@@ -33,7 +33,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/buscar")
-    public Usuario obtenerUsuarioPorNombre(@RequestParam String nombre) {
+    public Optional<Usuario> obtenerUsuarioPorNombre(@RequestParam String nombre) {
         return usuarioService.findByNombre(nombre);
     }
 
@@ -44,15 +44,13 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}/ventas")
-    public List<Venta> obtenerVentas (@PathVariable int id) {
+    public List<Venta> obtenerVentas(@PathVariable int id) {
         return usuarioService.obtenerVentas(id);
     }
 
     @GetMapping("/{id}/libros")
-    public List<Libro> obtenerLibrosPublicados (@PathVariable int id) {
+    public List<Libro> obtenerLibrosPublicados(@PathVariable int id) {
         return usuarioService.obtenerLibrosPublicados(id);
     }
-    
-    
 
 }

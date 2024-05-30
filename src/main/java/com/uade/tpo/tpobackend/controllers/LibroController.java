@@ -1,11 +1,11 @@
 package com.uade.tpo.tpobackend.controllers;
 
-import com.uade.tpo.tpobackend.dataObjects.LibroRequest;
+// import com.uade.tpo.tpobackend.dataObjects.LibroRequest;
 import com.uade.tpo.tpobackend.entity.Categoria;
 import com.uade.tpo.tpobackend.entity.Libro;
-import com.uade.tpo.tpobackend.entity.Usuario;
+// import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.service.LibroService;
-import com.uade.tpo.tpobackend.service.UsuarioService;
+// import com.uade.tpo.tpobackend.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/libros")
@@ -42,11 +41,10 @@ public class LibroController {
         List<Libro> filtro = new ArrayList<>();
 
         List<Libro> conjunto = libroService.getLibros();
-        
+
         for (Libro libro : conjunto) {
             List<Categoria> categoriasLibro = libro.getCate();
             for (Categoria cat : categoriasLibro) {
-               
                 if (cat.getNombre().equalsIgnoreCase(categoria)) {
                     System.out.println(true);
                     filtro.add(libro);
@@ -57,18 +55,11 @@ public class LibroController {
 
         return filtro;
     }
-    
-
 
     @PostMapping
     public Libro crearLibro(@RequestBody Libro libro) {
 
-    
         return libroService.createLibro(libro);
     }
-
-
-
-
 
 }
