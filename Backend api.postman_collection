@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "4b53975e-00de-4861-86f5-cc6379a8670c",
+		"name": "A0 api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27987221",
+		"_collection_link": "https://solar-equinox-217768.postman.co/workspace/test~9190bf19-6552-4c51-a13d-c4d1173512c1/collection/27987221-4b53975e-00de-4861-86f5-cc6379a8670c?action=share&source=collection_link&creator=27987221"
+	},
+	"item": [
+		{
+			"name": "getCategorias",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "post categoria",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n\r\n    \"nombre\":\"terror\",\r\n    \"descripcion\":\"cosas que dan miedo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/categorias",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postUsuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n  \"nombre\": \"Solano Soles\" ,\r\n    \"pass\": \"password123\",\r\n    \"admin\": \"true\",\r\n    \"saldo\": 100000000000000.0,\r\n    \"librosPublicados\": [],\r\n    \"ventas\": []\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/usuarios",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLibros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postLibro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n   \r\n    \"nombre\": \"Vigilar y castigar\",\r\n        \"descripcion\": \"descripción de libro\",\r\n        \"precio\": 2.5162222325E7,\r\n        \"autor\": \"Michael Foucault\",\r\n        \"cate\": [ {\"id\":1},{\"id\":2} ],\r\n        \"usuarioId\": 2\r\n\r\n\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLibros-Categoria",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
