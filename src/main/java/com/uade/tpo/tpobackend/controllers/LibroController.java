@@ -1,17 +1,9 @@
 package com.uade.tpo.tpobackend.controllers;
 
-import com.uade.tpo.tpobackend.dataObjects.LibroRequest;
-import com.uade.tpo.tpobackend.entity.Categoria;
-import com.uade.tpo.tpobackend.entity.Libro;
-import com.uade.tpo.tpobackend.entity.Usuario;
-
-import com.uade.tpo.tpobackend.exceptions.LibroInexistenteException;
-import com.uade.tpo.tpobackend.service.LibroService;
-import com.uade.tpo.tpobackend.service.UsuarioService;
+//import com.uade.tpo.tpobackend.entity.Categoria;
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.exceptions.LibroInexistenteException;
 import com.uade.tpo.tpobackend.service.LibroService;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -72,9 +64,6 @@ public class LibroController {
     
         return filtro;
     }
-    
-    
-    
 
     @PostMapping
     public ResponseEntity<Object> crearLibro(@RequestBody Libro libro) throws LibroInexistenteException {
