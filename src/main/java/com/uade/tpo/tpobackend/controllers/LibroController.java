@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Map;
+
+
 
 
 @RestController
@@ -36,29 +40,34 @@ public class LibroController {
             return ResponseEntity.notFound().build();
         }
     }
-
+  
     @GetMapping("/categorias/{categoria}")
-    public List<Libro> getMethodName(@PathVariable String categoria) {
-        List<Libro> filtro = new ArrayList<>();
-
+    public List<Libro> getLibrosPorCategoria(@PathVariable String categoria) {
         List<Libro> conjunto = libroService.getLibros();
-        
-        for (Libro libro : conjunto) {
-            List<Categoria> categoriasLibro = libro.getCate();
-            for (Categoria cat : categoriasLibro) {
-               
-                if (cat.getNombre().equalsIgnoreCase(categoria)) {
-                    System.out.println(true);
-                    filtro.add(libro);
-                    break;
-                }
-            }
-        }
+
+        List<Libro> filtro = conjunto.stream()
+                                    .filter(libro -> libro.getCate()
+                                                        .stream()
+                                                        .anyMatch(cat -> cat.getNombre()
+                                                                            .equalsIgnoreCase(categoria)))
+                                    .collect(Collectors.toList());
 
         return filtro;
     }
-    
 
+    @GetMapping("/autor/{autor}")
+    public List<Libro> getLibrosPorAutor(@PathVariable String autor) {
+        List<Libro> conjunto = libroService.getLibros();
+    
+        List<Libro> filtro = conjunto.stream()
+                                    .filter(libro -> libro.getAutor().trim().equalsIgnoreCase(autor.trim()))
+                                    .collect(Collectors.toList());
+    
+        return filtro;
+    }
+    
+    
+    
 
     @PostMapping
     public Libro crearLibro(@RequestBody Libro libro) {
@@ -68,7 +77,11 @@ public class LibroController {
     }
 
 
-
+    @DeleteMapping("/eliminar/")
+    public void deleteLibroById(@RequestBody Map<String, Integer> requestBody) {
+        int id = requestBody.get("id");
+        libroService.deleteLibroById(id);
+    }
 
 
 }
