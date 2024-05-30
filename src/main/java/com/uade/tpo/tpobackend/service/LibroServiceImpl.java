@@ -26,4 +26,10 @@ public class LibroServiceImpl implements LibroService {
     public Libro createLibro(Libro libro) {
         return LibroRepository.save(libro);
     }
+
+    @Override
+    public void deleteLibroById(int libroId){
+        
+         LibroRepository.deleteById(libroId);;
+    }
 }
