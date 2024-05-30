@@ -32,9 +32,14 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/error/**").permitAll()
+                        .requestMatchers("/usuarios/{id}/libros").permitAll()
 
                         .requestMatchers("/usuarios/**", "/ventas/**").hasAnyAuthority(Role.ADMIN.name())
                         // esta linea hace que usuarios y ventas solo pueda ser corrido por admin
+
+                        .requestMatchers(HttpMethod.GET).permitAll()
+                        // la idea con que los get esten permitidos es que sin loguearse, el cliente
+                        // pueda ver los libros y categorias que hay.
 
                         .requestMatchers("/libros/**", "/categorias/**")
                         .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
@@ -44,9 +49,7 @@ public class SecurityConfig {
                         // para updatear datos si o si hay que estar logueado
 
                         // en todos los permisos sumo a ADMIN porque quiero que tenga full access
-                        .requestMatchers(HttpMethod.GET).permitAll()
-                        // la idea con que los get esten permitidos es que sin loguearse, el cliente
-                        // pueda ver los libros y categorias que hay.
+
                         .anyRequest()
                         .authenticated())
 
