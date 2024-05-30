@@ -4,13 +4,16 @@ import com.uade.tpo.tpobackend.dataObjects.LibroRequest;
 import com.uade.tpo.tpobackend.entity.Categoria;
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.entity.Usuario;
+import com.uade.tpo.tpobackend.exceptions.LibroInexistenteException;
 import com.uade.tpo.tpobackend.service.LibroService;
 import com.uade.tpo.tpobackend.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,12 +35,12 @@ public class LibroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable int id) {
+    public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable int id) throws LibroInexistenteException {
         Libro libro = libroService.getLibroById(id);
         if (libro != null) {
             return ResponseEntity.ok(libro);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new LibroInexistenteException();
         }
     }
   
@@ -70,12 +73,13 @@ public class LibroController {
     
 
     @PostMapping
-    public Libro crearLibro(@RequestBody Libro libro) {
-
-    
-        return libroService.createLibro(libro);
+    public ResponseEntity<Object> crearLibro(@RequestBody Libro libro) throws LibroInexistenteException {
+        Libro nuevoLibro = libroService.createLibro(libro);
+        if (nuevoLibro == null) {
+            throw new LibroInexistenteException();
+        }
+        return ResponseEntity.created(URI.create("/libros/"+nuevoLibro.getLibro_id())).body(nuevoLibro);
     }
-
 
     @DeleteMapping("/eliminar/")
     public void deleteLibroById(@RequestBody Map<String, Integer> requestBody) {
