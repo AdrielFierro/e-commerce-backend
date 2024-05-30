@@ -10,5 +10,6 @@ public interface CategoriaService {
     List<Categoria> getCategorias();
     Categoria findById(int id);
     Categoria crearCategoria(Categoria categoria) throws CategoryDuplicateException;
-   
+    Categoria actualizarCategoria(int id, Categoria categoriaActualizada);
+    Categoria actualizarParcialmenteCategoria(int id, Categoria categoriaActualizada);
 }

@@ -18,4 +18,8 @@ public interface UsuarioService {
     List<Venta> obtenerVentas(int id);
 
     List<Libro> obtenerLibrosPublicados(int id);
+    
+    Usuario actualizarUsuario(int id, Usuario usuarioActualizado);
+
+    Usuario actualizarParcialmenteUsuario(int id, Usuario usuarioActualizado);
 }
