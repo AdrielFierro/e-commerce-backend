@@ -7,6 +7,7 @@ import com.uade.tpo.tpobackend.entity.Venta;
 import com.uade.tpo.tpobackend.repository.UsuarioRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario findByNombre(String nombre) {
+    public Optional<Usuario> findByNombre(String nombre) {
         return usuarioRepository.findByNombre(nombre);
     }
 
@@ -34,11 +35,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public List<Venta> obtenerVentas(int id) {
-        return findById(id).getVentas();       
+        return findById(id).getVentas();
     }
 
     @Override
-    public List<Libro> obtenerLibrosPublicados(int id){
+    public List<Libro> obtenerLibrosPublicados(int id) {
         return findById(id).getLibrosPublicados();
     }
 }
