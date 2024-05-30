@@ -45,7 +45,14 @@ public class SecurityConfig {
                         .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
                         // esta linea indica que para correr libros y categorias tenes que ser user
 
-                        .requestMatchers(HttpMethod.PUT).hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT)
+                        .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.PATCH)
+                        .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.DELETE)
+                        .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
                         // para updatear datos si o si hay que estar logueado
 
                         // en todos los permisos sumo a ADMIN porque quiero que tenga full access
