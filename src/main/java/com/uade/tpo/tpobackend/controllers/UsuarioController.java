@@ -35,11 +35,11 @@ public class UsuarioController {
         return usuarioService.findByNombre(nombre);
     }
 
-    @PostMapping
-    public Usuario crearUsuario(@RequestBody Usuario usuario) {
-        System.out.println(usuario);
-        return usuarioService.crearUsuario(usuario);
-    }
+    // @PostMapping
+    // public Usuario crearUsuario(@RequestBody Usuario usuario) {
+    // System.out.println(usuario);
+    // return usuarioService.crearUsuario(usuario);
+    // }
 
     @GetMapping("/{id}/ventas")
     public List<Venta> obtenerVentas(@PathVariable int id) {
@@ -62,7 +62,8 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarParcialmenteUsuario(@PathVariable int id, @RequestBody Usuario usuarioActualizado) {
+    public ResponseEntity<Usuario> actualizarParcialmenteUsuario(@PathVariable int id,
+            @RequestBody Usuario usuarioActualizado) {
         Usuario usuario = usuarioService.actualizarParcialmenteUsuario(id, usuarioActualizado);
         if (usuario != null) {
             return ResponseEntity.ok(usuario);

@@ -89,4 +89,8 @@ public class Usuario implements UserDetails {
         return true;
     }
 
+    public int getId() {
+
+        return usuario_id;
+    }
 }

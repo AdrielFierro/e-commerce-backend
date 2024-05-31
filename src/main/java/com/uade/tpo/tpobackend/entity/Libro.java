@@ -35,7 +35,7 @@ public class Libro {
     @Column(name = "usuarioId")
     private int usuarioId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuarioId", insertable = false, updatable = false)
     @JsonIgnore
     private Usuario duenio;

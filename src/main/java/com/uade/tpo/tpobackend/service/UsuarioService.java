@@ -13,12 +13,12 @@ public interface UsuarioService {
 
     Optional<Usuario> findByNombre(String nombre);
 
-    Usuario crearUsuario(Usuario usuario);
+    // Usuario crearUsuario(Usuario usuario);
 
     List<Venta> obtenerVentas(int id);
 
     List<Libro> obtenerLibrosPublicados(int id);
-    
+
     Usuario actualizarUsuario(int id, Usuario usuarioActualizado);
 
     Usuario actualizarParcialmenteUsuario(int id, Usuario usuarioActualizado);

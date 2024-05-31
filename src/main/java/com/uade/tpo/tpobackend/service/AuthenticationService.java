@@ -32,7 +32,10 @@ public class AuthenticationService {
                                 .build();
                 repository.save(usuario);
 
-                var jwtToken = jwtService.generateToken(usuario);
+                var jwtToken = jwtService.generateToken(usuario, usuario.getUsuario_id()); // aca el getusuario_id te da
+                                                                                           // el id para crear en el
+                                                                                           // token directo del usuario
+                                                                                           // recientemente generado
                 return AuthenticationResponse.builder()
                                 .accessToken(jwtToken)
                                 .build();
@@ -47,7 +50,7 @@ public class AuthenticationService {
                 var usuario = repository.findByNombre(request.getNombre())
 
                                 .orElseThrow();
-                var jwtToken = jwtService.generateToken(usuario);
+                var jwtToken = jwtService.generateToken(usuario, usuario.getUsuario_id());
                 return AuthenticationResponse.builder()
                                 .accessToken(jwtToken)
                                 .build();

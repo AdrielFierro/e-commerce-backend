@@ -2,6 +2,7 @@ package com.uade.tpo.tpobackend.service;
 
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.entity.Usuario;
+// import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,4 +52,13 @@ public class LibroServiceImpl implements LibroService {
         LibroRepository.deleteById(libroId);
         ;
     }
+
+    @Override
+    public Usuario getDuenio(int libro_id) {
+
+        Libro libro = getLibroById(libro_id);
+
+        return libro.getDuenio();
+    }
+
 }

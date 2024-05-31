@@ -27,10 +27,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioRepository.findByNombre(nombre);
     }
 
-    @Override
-    public Usuario crearUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
-    }
+    // @Override
+    // public Usuario crearUsuario(Usuario usuario) {
+    // return usuarioRepository.save(usuario);
+    // }
 
     @Override
     public List<Venta> obtenerVentas(int id) {
@@ -67,6 +67,5 @@ public class UsuarioServiceImpl implements UsuarioService {
             return usuarioRepository.save(usuarioExistente);
         }).orElse(null);
     }
-
 
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import com.uade.tpo.tpobackend.entity.Categoria;
 import com.uade.tpo.tpobackend.service.CategoriaService;
 import com.uade.tpo.tpobackend.exceptions.*;
-import com.uade.tpo.tpobackend.dataObjects.*;
 import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
