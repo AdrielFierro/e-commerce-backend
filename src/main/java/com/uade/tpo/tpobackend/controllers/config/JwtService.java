@@ -2,10 +2,14 @@ package com.uade.tpo.tpobackend.controllers.config;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 import org.springframework.stereotype.Service;
+
+import com.uade.tpo.tpobackend.repository.UsuarioRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -21,18 +25,23 @@ public class JwtService {
     private long jwtExpiration;
 
     public String generateToken(
-            UserDetails userDetails) {
-        return buildToken(userDetails, jwtExpiration);
+            UserDetails userDetails, int userid) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", userid);
+
+        return buildToken(userDetails, jwtExpiration, userid);
     }
 
     private String buildToken(
             UserDetails userDetails,
-            long expiration) {
+            long expiration, int userid) {
+        // cuando creo el token le pido que me pase los userdetails, la expiracion y le
+        // paso el user id(no se lo pide al cliente lo toma directo cuando crea el user)
         return Jwts
                 .builder()
-                .subject(userDetails.getUsername()) // prueba@hotmail.com
+                .subject(userDetails.getUsername()) // me va a traer el nombre del user
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .claim("test", 1234567)
+                .claim("id", userid) // este campo es el añadido al token es el id del usuario
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSecretKey())
                 .compact();
@@ -50,6 +59,11 @@ public class JwtService {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+
+    public String extractId(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+    // aca extraigo el id supuestamente
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);

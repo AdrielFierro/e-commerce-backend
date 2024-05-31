@@ -1,10 +1,12 @@
 package com.uade.tpo.tpobackend.controllers;
 
-import com.uade.tpo.tpobackend.entity.Categoria;
-//import com.uade.tpo.tpobackend.entity.Categoria;
+import com.uade.tpo.tpobackend.controllers.config.JwtService;
 import com.uade.tpo.tpobackend.entity.Libro;
+import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.exceptions.LibroInexistenteException;
 import com.uade.tpo.tpobackend.service.LibroService;
+
+import io.jsonwebtoken.Claims;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,10 +24,20 @@ public class LibroController {
 
     @Autowired
     private LibroService libroService;
+    @Autowired
+    private JwtService jwts;
 
     @GetMapping
     public List<Libro> obtenerLibros() {
         return libroService.getLibros();
+    }
+
+    @GetMapping("/test")
+    public String test(@RequestHeader("Authorization") String authorizationHeader) {
+        authorizationHeader = authorizationHeader.substring(7);
+
+        return jwts.extractId(authorizationHeader);
+        // return authorizationHeader;
     }
 
     @PutMapping("/{libro_id}")
@@ -88,4 +100,13 @@ public class LibroController {
         int id = requestBody.get("id");
         libroService.deleteLibroById(id);
     }
+
+    @GetMapping("/duenio/{libroid}")
+    public String getMethodName(@PathVariable int libroid) {
+        Usuario usuarioTraido = libroService.getDuenio(libroid);
+        String duenio = usuarioTraido.getNombre();
+
+        return duenio;
+    }
+
 }
