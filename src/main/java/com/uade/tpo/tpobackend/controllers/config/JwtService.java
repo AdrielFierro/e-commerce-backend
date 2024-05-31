@@ -60,8 +60,8 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public String extractId(String token) {
-        return extractClaim(token, Claims::getSubject);
+    public int extractId(String token) {
+        return extractClaim(token, claims -> claims.get("id", Integer.class));
     }
     // aca extraigo el id supuestamente
 

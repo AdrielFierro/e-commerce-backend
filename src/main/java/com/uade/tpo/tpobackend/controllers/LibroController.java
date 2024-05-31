@@ -33,7 +33,7 @@ public class LibroController {
     }
 
     @GetMapping("/test")
-    public String test(@RequestHeader("Authorization") String authorizationHeader) {
+    public int test(@RequestHeader("Authorization") String authorizationHeader) {
         authorizationHeader = authorizationHeader.substring(7);
 
         return jwts.extractId(authorizationHeader);
