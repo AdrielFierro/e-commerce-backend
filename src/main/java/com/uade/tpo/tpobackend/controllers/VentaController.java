@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("/ventas")
@@ -34,4 +36,10 @@ public class VentaController {
     public Venta crearVenta(@RequestBody Venta venta) {
         return ventaService.crearVenta(venta);
     }
+
+    @GetMapping("/{id}/total")
+    public double calcularPrecioTotal(@PathVariable int id) {
+        return ventaService.calcularPrecioTotal(id);
+    }
+    
 }

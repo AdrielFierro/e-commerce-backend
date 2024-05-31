@@ -8,4 +8,5 @@ public interface VentaService {
     Venta findById(int id);
     List<Venta> findAll();
     Venta crearVenta(Venta venta);
+    double calcularPrecioTotal(int id);
 }

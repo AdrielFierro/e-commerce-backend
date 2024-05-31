@@ -1,0 +1,470 @@
+{
+	"info": {
+		"_postman_id": "71e4668e-1fa7-4ec6-9eb3-c16dbfe3300f",
+		"name": "Backend api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35325676"
+	},
+	"item": [
+		{
+			"name": "getLibros-Categoria",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "categoria",
+						"value": "terror",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros/categorias/fantasia",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros",
+						"categorias",
+						"fantasia"
+					],
+					"query": [
+						{
+							"key": "categoria",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLibros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLibro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros/3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLibroPorAutor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros/autor/Michael Foucault",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros",
+						"autor",
+						"Michael Foucault"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCategorias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4002/categorias",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb21wcmFkb3IiLCJpYXQiOjE3MTcxNzE4ODMsInRlc3QiOjEyMzQ1NjcsImV4cCI6MTcxNzI1ODI4M30.K5Pq7V7vXA1ZS4f_e4qVKP0mCOVEyz9-wwYUcfasMtdhI3A7EmsyQEJjVinJhmUHAujwMxjVlbVPpfjnozPsEA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4002/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getVenta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb21wcmFkb3IiLCJpYXQiOjE3MTcxNzQ3MTYsInRlc3QiOjEyMzQ1NjcsImV4cCI6MTcxNzI2MTExNn0.OBFzZBLNMa4TMR9ozIM7EVcYYlgUb1ZtkTJkzs3GkTRxY8ytdxr7Xv-NhJlNefxWsM3QUJcMm6ynE8n_Q3dPiQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:4002/ventas/1/total",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"ventas",
+						"1",
+						"total"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postUsuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"vendedor\",\r\n\"pass\":\"perro45\",\r\n\"role\":\"ADMIN\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postUsuario2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"comprador\",\r\n\"pass\":\"perro45\",\r\n\"role\":\"ADMIN\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postLibro",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb21wcmFkb3IiLCJpYXQiOjE3MTcxNzQ3MTYsInRlc3QiOjEyMzQ1NjcsImV4cCI6MTcxNzI2MTExNn0.OBFzZBLNMa4TMR9ozIM7EVcYYlgUb1ZtkTJkzs3GkTRxY8ytdxr7Xv-NhJlNefxWsM3QUJcMm6ynE8n_Q3dPiQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n   \r\n    \"nombre\": \"Vigilar y castigar\",\r\n        \"descripcion\": \"descripción de libro\",\r\n        \"precio\": 2.0,\r\n        \"autor\": \"Michael Foucault\",\r\n        \"cate\": [ {\"id\":1},{\"id\":2} ],\r\n        \"usuarioId\": 1\r\n\r\n\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postLibro2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb21wcmFkb3IiLCJpYXQiOjE3MTcxNzQ3MTYsInRlc3QiOjEyMzQ1NjcsImV4cCI6MTcxNzI2MTExNn0.OBFzZBLNMa4TMR9ozIM7EVcYYlgUb1ZtkTJkzs3GkTRxY8ytdxr7Xv-NhJlNefxWsM3QUJcMm6ynE8n_Q3dPiQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n   \r\n    \"nombre\": \"Librito 2\",\r\n        \"descripcion\": \"descripción de libro\",\r\n        \"precio\": 1.3,\r\n        \"autor\": \"James\",\r\n        \"cate\": [ {\"id\":1},{\"id\":2} ],\r\n        \"usuarioId\": 1\r\n\r\n\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post categoria",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb21wcmFkb3IiLCJpYXQiOjE3MTcxNzE4ODMsInRlc3QiOjEyMzQ1NjcsImV4cCI6MTcxNzI1ODI4M30.K5Pq7V7vXA1ZS4f_e4qVKP0mCOVEyz9-wwYUcfasMtdhI3A7EmsyQEJjVinJhmUHAujwMxjVlbVPpfjnozPsEA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \r\n\r\n    \"nombre\":\"fantasia\",\r\n    \"descripcion\":\" engloba a todos los relatos que contienen elementos fantásticos en sus historias\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/categoria",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"categoria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postVenta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb21wcmFkb3IiLCJpYXQiOjE3MTcxNzI2MDcsInRlc3QiOjEyMzQ1NjcsImV4cCI6MTcxNzI1OTAwN30.sVhxYkLGhKzuRA6Ie1cj2bHL1OqoVTLbiLZQcxuWL34uVq8L_E5FUK1FUZiP6Ca_tFjWEg1i0Vs720bS6HbNCQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comprador\": {\r\n        \"usuario_id\": 2,\r\n        \"nombre\": \"comprador\",\r\n        \"pass\": \"$2a$10$n6kIgPGJZHboLWWJfHlmBOI2DyWQqtch7lKpHDx6up3ZZ6aDRdBdy\",\r\n        \"admin\": null,\r\n        \"saldo\": null,\r\n        \"role\": \"ADMIN\",\r\n        \"librosPublicados\": [],\r\n        \"ventas\": [],\r\n        \"enabled\": true,\r\n        \"accountNonLocked\": true,\r\n        \"username\": \"comprador\",\r\n        \"credentialsNonExpired\": true,\r\n        \"accountNonExpired\": true,\r\n        \"password\": \"$2a$10$n6kIgPGJZHboLWWJfHlmBOI2DyWQqtch7lKpHDx6up3ZZ6aDRdBdy\"\r\n    },\r\n    \"libros\": [\r\n        {\r\n            \"libro_id\": 1,\r\n            \"nombre\": \"Vigilar y castigar\",\r\n            \"descripcion\": \"descripción de libro\",\r\n            \"precio\": 2.0,\r\n            \"autor\": \"Michael Foucault\",\r\n            \"cate\": [],\r\n            \"usuarioId\": 1\r\n        },\r\n        {\r\n            \"libro_id\": 2,\r\n            \"nombre\": \"Librito 2\",\r\n            \"descripcion\": \"descripción de libro\",\r\n            \"precio\": 1.3,\r\n            \"autor\": \"James\",\r\n            \"cate\": [],\r\n            \"usuarioId\": 1\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/ventas",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"ventas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminarLibroID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros/eliminar/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros",
+						"eliminar",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

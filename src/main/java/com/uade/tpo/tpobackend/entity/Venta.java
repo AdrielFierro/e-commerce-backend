@@ -22,12 +22,5 @@ public class Venta {
     @OneToMany 
     @JoinColumn(name = "venta_id")
     private List<Libro> libros;
-    
-    public double calcularPrecioTotal() {
-        double precioTotal = 0.0;
-        for (Libro libro : libros) {
-            precioTotal += libro.getPrecio();
-        }
-        return precioTotal;
-    }
+
 }
