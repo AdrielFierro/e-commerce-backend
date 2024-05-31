@@ -1,7 +1,5 @@
 package com.uade.tpo.tpobackend.entity;
 
-
-
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -11,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Data
 @Entity
 public class Libro {
-    public Libro(){
+    public Libro() {
     }
 
     @Id
@@ -31,14 +29,15 @@ public class Libro {
     private String autor;
 
     @OneToMany
-    @JoinColumn(name = "categoria_id") 
+    @JoinColumn(name = "categoria_id")
     private List<Categoria> cate;
 
-    @Column(name = "usuarioId") 
+    @Column(name = "usuarioId")
     private int usuarioId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuarioId", insertable = false, updatable = false)
     @JsonIgnore
     private Usuario duenio;
+
 }

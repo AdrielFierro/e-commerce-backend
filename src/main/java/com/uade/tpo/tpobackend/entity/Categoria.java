@@ -7,17 +7,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-
 @Data
 @Entity
 public class Categoria {
 
-    public Categoria(){
+    public Categoria() {
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int categoria_id;
     @Column
     private String nombre;
     @Column

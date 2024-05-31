@@ -8,8 +8,12 @@ import com.uade.tpo.tpobackend.exceptions.CategoryDuplicateException;
 
 public interface CategoriaService {
     List<Categoria> getCategorias();
-    Categoria findById(int id);
+
+    Categoria findById(int categoria_id);
+
     Categoria crearCategoria(Categoria categoria) throws CategoryDuplicateException;
-    Categoria actualizarCategoria(int id, Categoria categoriaActualizada);
-    Categoria actualizarParcialmenteCategoria(int id, Categoria categoriaActualizada);
+
+    Categoria actualizarCategoria(int categoria_id, Categoria categoriaActualizada);
+
+    Categoria actualizarParcialmenteCategoria(int categoria_id, Categoria categoriaActualizada);
 }

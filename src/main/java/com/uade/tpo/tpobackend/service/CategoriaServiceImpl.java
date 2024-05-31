@@ -19,23 +19,23 @@ public class CategoriaServiceImpl implements CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     @Override
-    public Categoria findById(int id) {
-        return categoriaRepository.findById(id).orElse(null);
+    public Categoria findById(int categoria_id) {
+        return categoriaRepository.findById(categoria_id).orElse(null);
     }
 
     @Override
-    public Categoria crearCategoria(Categoria categoria)throws CategoryDuplicateException {
-         List<Categoria> categories = categoriaRepository.findByDescripcion(categoria.getDescripcion());
-        if (categories.isEmpty()){
-            return categoriaRepository.save(categoria); }//inserta o actualiza una fila en la base de datos
+    public Categoria crearCategoria(Categoria categoria) throws CategoryDuplicateException {
+        List<Categoria> categories = categoriaRepository.findByDescripcion(categoria.getDescripcion());
+        if (categories.isEmpty()) {
+            return categoriaRepository.save(categoria);
+        } // inserta o actualiza una fila en la base de datos
         throw new CategoryDuplicateException();
     }
 
     @Override
-    public List<Categoria> getCategorias(){
+    public List<Categoria> getCategorias() {
         return categoriaRepository.findAll();
     }
- 
 
     @Override
     public Categoria actualizarCategoria(int id, Categoria categoriaActualizada) {

@@ -1,5 +1,6 @@
 package com.uade.tpo.tpobackend.controllers;
 
+import com.uade.tpo.tpobackend.entity.Categoria;
 //import com.uade.tpo.tpobackend.entity.Categoria;
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.exceptions.LibroInexistenteException;
@@ -15,9 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Map;
 
-
-
-
 @RestController
 @RequestMapping("/libros")
 public class LibroController {
@@ -30,6 +28,17 @@ public class LibroController {
         return libroService.getLibros();
     }
 
+    @PutMapping("/{libro_id}")
+    public ResponseEntity<Libro> actualizarLibro(@PathVariable int libro_id,
+            @RequestBody Libro libroActualizado) {
+        Libro libro = libroService.actualizarLibro(libro_id, libroActualizado);
+        if (libro != null) {
+            return ResponseEntity.ok(libro);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable int id) throws LibroInexistenteException {
         Libro libro = libroService.getLibroById(id);
@@ -39,17 +48,17 @@ public class LibroController {
             throw new LibroInexistenteException();
         }
     }
-  
+
     @GetMapping("/categorias/{categoria}")
     public List<Libro> getLibrosPorCategoria(@PathVariable String categoria) {
         List<Libro> conjunto = libroService.getLibros();
 
         List<Libro> filtro = conjunto.stream()
-                                    .filter(libro -> libro.getCate()
-                                                        .stream()
-                                                        .anyMatch(cat -> cat.getNombre()
-                                                                            .equalsIgnoreCase(categoria)))
-                                    .collect(Collectors.toList());
+                .filter(libro -> libro.getCate()
+                        .stream()
+                        .anyMatch(cat -> cat.getNombre()
+                                .equalsIgnoreCase(categoria)))
+                .collect(Collectors.toList());
 
         return filtro;
     }
@@ -57,11 +66,11 @@ public class LibroController {
     @GetMapping("/autor/{autor}")
     public List<Libro> getLibrosPorAutor(@PathVariable String autor) {
         List<Libro> conjunto = libroService.getLibros();
-    
+
         List<Libro> filtro = conjunto.stream()
-                                    .filter(libro -> libro.getAutor().trim().equalsIgnoreCase(autor.trim()))
-                                    .collect(Collectors.toList());
-    
+                .filter(libro -> libro.getAutor().trim().equalsIgnoreCase(autor.trim()))
+                .collect(Collectors.toList());
+
         return filtro;
     }
 
@@ -71,7 +80,7 @@ public class LibroController {
         if (nuevoLibro == null) {
             throw new LibroInexistenteException();
         }
-        return ResponseEntity.created(URI.create("/libros/"+nuevoLibro.getLibro_id())).body(nuevoLibro);
+        return ResponseEntity.created(URI.create("/libros/" + nuevoLibro.getLibro_id())).body(nuevoLibro);
     }
 
     @DeleteMapping("/eliminar/")
