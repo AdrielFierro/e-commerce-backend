@@ -4,6 +4,7 @@ import com.uade.tpo.tpobackend.controllers.config.JwtService;
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.exceptions.LibroInexistenteException;
+import com.uade.tpo.tpobackend.exceptions.NoMatchUsuarioException;
 import com.uade.tpo.tpobackend.service.LibroService;
 
 import io.jsonwebtoken.Claims;
@@ -35,20 +36,33 @@ public class LibroController {
     @GetMapping("/test")
     public int test(@RequestHeader("Authorization") String authorizationHeader) {
         authorizationHeader = authorizationHeader.substring(7);
-
-        return jwts.extractId(authorizationHeader);
+        int idusuario = jwts.extractId(authorizationHeader);
+        return idusuario;
         // return authorizationHeader;
     }
 
     @PutMapping("/{libro_id}")
     public ResponseEntity<Libro> actualizarLibro(@PathVariable int libro_id,
-            @RequestBody Libro libroActualizado) {
-        Libro libro = libroService.actualizarLibro(libro_id, libroActualizado);
-        if (libro != null) {
-            return ResponseEntity.ok(libro);
+            @RequestBody Libro libroActualizado, @RequestHeader("Authorization") String authorizationHeader)
+            throws NoMatchUsuarioException {
+        authorizationHeader = authorizationHeader.substring(7);
+
+        int idusuario = jwts.extractId(authorizationHeader);
+
+        Libro libroAactualizar = libroService.getLibroById(libro_id);
+        int idUsuarioLibro = libroAactualizar.getUsuarioId();
+        if (idusuario == idUsuarioLibro) {
+            Libro libro = libroService.actualizarLibro(libro_id, libroActualizado);
+            if (libro != null) {
+                return ResponseEntity.ok(libro);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NoMatchUsuarioException();
         }
+
     }
 
     @GetMapping("/{id}")
@@ -87,7 +101,12 @@ public class LibroController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> crearLibro(@RequestBody Libro libro) throws LibroInexistenteException {
+    public ResponseEntity<Object> crearLibro(@RequestBody Libro libro,
+            @RequestHeader("Authorization") String authorizationHeader) throws LibroInexistenteException {
+        authorizationHeader = authorizationHeader.substring(7);
+
+        libro.setUsuarioId(jwts.extractId(authorizationHeader));
+
         Libro nuevoLibro = libroService.createLibro(libro);
         if (nuevoLibro == null) {
             throw new LibroInexistenteException();

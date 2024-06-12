@@ -35,6 +35,9 @@ public class Libro {
     @Column(name = "usuarioId")
     private int usuarioId;
 
+    @Column
+    private int stock;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuarioId", insertable = false, updatable = false)
     @JsonIgnore

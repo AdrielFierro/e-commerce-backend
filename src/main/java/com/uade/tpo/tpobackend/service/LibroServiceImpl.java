@@ -25,6 +25,7 @@ public class LibroServiceImpl implements LibroService {
             libro.setPrecio(LibroActualizado.getPrecio());
             libro.setAutor(LibroActualizado.getAutor());
             libro.setCate(LibroActualizado.getCate());
+            libro.setStock(LibroActualizado.getStock());
 
             return LibroRepository.save(libro);
         }

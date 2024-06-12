@@ -46,6 +46,7 @@ public class Usuario implements UserDetails {
 
     @OneToMany(mappedBy = "duenio")
     private List<Libro> librosPublicados;
+
     @OneToMany
     @JoinColumn(name = "venta_id")
     private List<Venta> ventas;// -

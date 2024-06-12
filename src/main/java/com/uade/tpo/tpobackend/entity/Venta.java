@@ -15,11 +15,13 @@ public class Venta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int venta_id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario comprador;
+    @Column
+    private int comprador_ID;
 
-    @OneToMany 
+    @Column
+    private int vendedor_ID;
+
+    @OneToMany
     @JoinColumn(name = "venta_id")
     private List<Libro> libros;
 
