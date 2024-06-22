@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/libros")
 public class LibroController {
@@ -65,6 +66,28 @@ public class LibroController {
 
     }
 
+    
+    @PutMapping("actualizarStock/{id}")
+    public ResponseEntity<Libro> actualizarStock(@PathVariable int id, @RequestBody int stock,@RequestHeader("Authorization") String authorizationHeader)
+    throws NoMatchUsuarioException {
+        authorizationHeader = authorizationHeader.substring(7);
+
+        int idusuario = jwts.extractId(authorizationHeader);
+
+        Libro libroAactualizar = libroService.getLibroById(id);
+        int idUsuarioLibro = libroAactualizar.getUsuarioId();
+        if (idusuario == idUsuarioLibro) {
+            Libro libro = libroService.actualizarStockLibro(id, stock);
+            if (libro != null) {
+                return ResponseEntity.ok(libro);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+
+        } else {
+            throw new NoMatchUsuarioException();
+        }
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable int id) throws LibroInexistenteException {
         Libro libro = libroService.getLibroById(id);
@@ -75,19 +98,7 @@ public class LibroController {
         }
     }
 
-    @GetMapping("/categorias/{categoria}")
-    public List<Libro> getLibrosPorCategoria(@PathVariable String categoria) {
-        List<Libro> conjunto = libroService.getLibros();
 
-        List<Libro> filtro = conjunto.stream()
-                .filter(libro -> libro.getCate()
-                        .stream()
-                        .anyMatch(cat -> cat.getNombre()
-                                .equalsIgnoreCase(categoria)))
-                .collect(Collectors.toList());
-
-        return filtro;
-    }
 
     @GetMapping("/autor/{autor}")
     public List<Libro> getLibrosPorAutor(@PathVariable String autor) {
@@ -106,8 +117,8 @@ public class LibroController {
         authorizationHeader = authorizationHeader.substring(7);
 
         libro.setUsuarioId(jwts.extractId(authorizationHeader));
-
         Libro nuevoLibro = libroService.createLibro(libro);
+
         if (nuevoLibro == null) {
             throw new LibroInexistenteException();
         }

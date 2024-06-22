@@ -5,7 +5,7 @@ import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.entity.Usuario;
 
 import java.util.List;
-import java.util.Optional;
+
 
 public interface LibroService {
     List<Libro> getLibros();
@@ -19,4 +19,6 @@ public interface LibroService {
     Libro actualizarLibro(int libro_id, Libro libroActualizado);
 
     Usuario getDuenio(int libro_id);
+
+    Libro actualizarStockLibro(int libro_id,int stock);
 }

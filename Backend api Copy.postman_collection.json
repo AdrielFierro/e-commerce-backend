@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "71e4668e-1fa7-4ec6-9eb3-c16dbfe3300f",
-		"name": "Backend api",
+		"_postman_id": "5f60082e-0e7a-40b7-b91b-ca03958b97b4",
+		"name": "Backend api Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "35325676"
+		"_exporter_id": "27987221",
+		"_collection_link": "https://solar-equinox-217768.postman.co/workspace/test~9190bf19-6552-4c51-a13d-c4d1173512c1/collection/27987221-5f60082e-0e7a-40b7-b91b-ca03958b97b4?action=share&source=collection_link&creator=27987221"
 	},
 	"item": [
 		{
@@ -18,7 +19,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://127.0.0.1:4002/libros/categorias/fantasia",
+					"raw": "http://127.0.0.1:4002/categoria/categorias/ciencia ficcion",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -28,9 +29,9 @@
 					],
 					"port": "4002",
 					"path": [
-						"libros",
+						"categoria",
 						"categorias",
-						"fantasia"
+						"ciencia ficcion"
 					],
 					"query": [
 						{
@@ -94,7 +95,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:4002/libros/autor/Michael Foucault",
+					"raw": "http://127.0.0.1:4002/libros/autor/El nombre del autor",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -106,7 +107,7 @@
 					"path": [
 						"libros",
 						"autor",
-						"Michael Foucault"
+						"El nombre del autor"
 					]
 				}
 			},
@@ -118,7 +119,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:4002/categorias",
+					"raw": "http://127.0.0.1:4002/categoria/2",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -128,7 +129,8 @@
 					],
 					"port": "4002",
 					"path": [
-						"categorias"
+						"categoria",
+						"2"
 					]
 				}
 			},
@@ -277,16 +279,16 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb21wcmFkb3IiLCJpYXQiOjE3MTcxNzQ3MTYsInRlc3QiOjEyMzQ1NjcsImV4cCI6MTcxNzI2MTExNn0.OBFzZBLNMa4TMR9ozIM7EVcYYlgUb1ZtkTJkzs3GkTRxY8ytdxr7Xv-NhJlNefxWsM3QUJcMm6ynE8n_Q3dPiQ",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZW5kZWRvciIsImlhdCI6MTcxOTA2NjcwMSwiaWQiOjEsImV4cCI6MTcxOTE1MzEwMX0.sTemJY03LLjj3Rm8xAEX-X-k-onXbtb9Ee8en81J0HiLBy77ktqoahacvpv88Jhw9v6j07tiDSWsC3mqGPG6bw",
 							"type": "string"
 						}
 					]
 				},
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \r\n   \r\n    \"nombre\": \"Vigilar y castigar\",\r\n        \"descripcion\": \"descripción de libro\",\r\n        \"precio\": 2.0,\r\n        \"autor\": \"Michael Foucault\",\r\n        \"cate\": [ {\"id\":1},{\"id\":2} ],\r\n        \"usuarioId\": 1\r\n\r\n\r\n\r\n\r\n}",
+					"raw": "{\r\n  \"nombre\": \"El nombre del libro\",\r\n  \"descripcion\": \"Una descripción del libro\",\r\n  \"precio\": 19.99,\r\n  \"autor\": \"El nombre del autor\",\r\n  \"usuarioId\": 123,\r\n  \"stock\": 10,\r\n  \"categorias\": [\r\n    {\r\n      \"categoria_id\": 3,\r\n      \"nombre\": \"accion\",\r\n      \"descripcion\": \"bombas, tiros y piedras\"\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -294,7 +296,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:4002/libros",
+					"raw": "http://127.0.0.1:4002/libros/1",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -304,7 +306,51 @@
 					],
 					"port": "4002",
 					"path": [
-						"libros"
+						"libros",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actualizarStockLibro",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZW5kZWRvciIsImlhdCI6MTcxOTA2NjcwMSwiaWQiOjEsImV4cCI6MTcxOTE1MzEwMX0.sTemJY03LLjj3Rm8xAEX-X-k-onXbtb9Ee8en81J0HiLBy77ktqoahacvpv88Jhw9v6j07tiDSWsC3mqGPG6bw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "20",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4002/libros/actualizarStock/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4002",
+					"path": [
+						"libros",
+						"actualizarStock",
+						"1"
 					]
 				}
 			},
@@ -318,7 +364,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb21wcmFkb3IiLCJpYXQiOjE3MTcxNzQ3MTYsInRlc3QiOjEyMzQ1NjcsImV4cCI6MTcxNzI2MTExNn0.OBFzZBLNMa4TMR9ozIM7EVcYYlgUb1ZtkTJkzs3GkTRxY8ytdxr7Xv-NhJlNefxWsM3QUJcMm6ynE8n_Q3dPiQ",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZW5kZWRvciIsImlhdCI6MTcxOTA2NjcwMSwiaWQiOjEsImV4cCI6MTcxOTE1MzEwMX0.sTemJY03LLjj3Rm8xAEX-X-k-onXbtb9Ee8en81J0HiLBy77ktqoahacvpv88Jhw9v6j07tiDSWsC3mqGPG6bw",
 							"type": "string"
 						}
 					]
@@ -327,7 +373,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \r\n   \r\n    \"nombre\": \"Librito 2\",\r\n        \"descripcion\": \"descripción de libro\",\r\n        \"precio\": 1.3,\r\n        \"autor\": \"James\",\r\n        \"cate\": [ {\"id\":1},{\"id\":2} ],\r\n        \"usuarioId\": 1\r\n\r\n\r\n\r\n\r\n}",
+					"raw": "{\r\n  \"nombre\": \"El nombre del libro\",\r\n  \"descripcion\": \"Una descripción del libro\",\r\n  \"precio\": 19.99,\r\n  \"autor\": \"El nombre del autor\",\r\n  \"usuarioId\": 123,\r\n  \"stock\": 10,\r\n  \"categorias\": [\r\n    {\r\n      \"categoria_id\": 1,\r\n      \"nombre\": \"Ficción\",\r\n      \"descripcion\": \"Libros de ficción\"\r\n    },\r\n    {\r\n      \"categoria_id\": 2,\r\n      \"nombre\": \"Aventura\",\r\n      \"descripcion\": \"Libros de aventura\"\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -359,7 +405,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb21wcmFkb3IiLCJpYXQiOjE3MTcxNzE4ODMsInRlc3QiOjEyMzQ1NjcsImV4cCI6MTcxNzI1ODI4M30.K5Pq7V7vXA1ZS4f_e4qVKP0mCOVEyz9-wwYUcfasMtdhI3A7EmsyQEJjVinJhmUHAujwMxjVlbVPpfjnozPsEA",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2ZW5kZWRvciIsImlhdCI6MTcxOTA3NjE5MSwiaWQiOjIsImV4cCI6MTcxOTE2MjU5MX0.mvQqslOTkW5a_ny6pta1nJUX2neW-5vk0eljILv9Rl0LAjka9Kt0o3qxkGmwmTrAq-8ZGLuq8-stBRDkjbdiXA",
 							"type": "string"
 						}
 					]
@@ -368,7 +414,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{  \r\n\r\n    \"nombre\":\"fantasia\",\r\n    \"descripcion\":\" engloba a todos los relatos que contienen elementos fantásticos en sus historias\"\r\n}",
+					"raw": "{  \r\n\r\n   \"nombre\": \"ciencia ficción\",\r\n        \"descripcion\": \"logros científicos y tecnológicos imaginarios.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

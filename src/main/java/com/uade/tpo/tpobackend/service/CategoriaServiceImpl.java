@@ -18,9 +18,15 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+
     @Override
     public Categoria findById(int categoria_id) {
         return categoriaRepository.findById(categoria_id).orElse(null);
+    }
+
+    @Override
+    public Optional<Categoria> getCategoriaPorNombre(String nombre) {
+        return categoriaRepository.findByNameIgnoreCase(nombre);
     }
 
     @Override

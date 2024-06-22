@@ -24,13 +24,25 @@ public class LibroServiceImpl implements LibroService {
             libro.setDescripcion(LibroActualizado.getDescripcion());
             libro.setPrecio(LibroActualizado.getPrecio());
             libro.setAutor(LibroActualizado.getAutor());
-            libro.setCate(LibroActualizado.getCate());
+           
+            libro.setCategorias(LibroActualizado.getCategorias());
             libro.setStock(LibroActualizado.getStock());
 
             return LibroRepository.save(libro);
         }
         return null;
     }
+
+    @Override
+    public Libro actualizarStockLibro(int libro_id,int stock){
+        Optional<Libro>LibroOptional=LibroRepository.findById(libro_id);
+        if(LibroOptional.isPresent()){
+        Libro libro=LibroOptional.get();
+        libro.setStock(stock);
+        return LibroRepository.save(libro);
+        }
+        return null;
+    };
 
     @Override
     public List<Libro> getLibros() {
