@@ -1,5 +1,6 @@
 package com.uade.tpo.tpobackend.service;
 
+import com.google.protobuf.Option;
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.entity.Venta;
@@ -68,4 +69,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         }).orElse(null);
     }
 
+    @Override
+    public Integer obtenerIdUsuarioPorNombre(String nombre) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByNombre(nombre);
+        return usuarioOptional.map(Usuario::getId).orElse(null);
+    }
+    
 }

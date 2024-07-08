@@ -22,4 +22,6 @@ public interface UsuarioService {
     Usuario actualizarUsuario(int id, Usuario usuarioActualizado);
 
     Usuario actualizarParcialmenteUsuario(int id, Usuario usuarioActualizado);
+
+    Integer obtenerIdUsuarioPorNombre(String nombre);
 }

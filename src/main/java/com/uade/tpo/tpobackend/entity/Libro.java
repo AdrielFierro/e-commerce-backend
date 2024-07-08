@@ -9,8 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Data
 @Entity
 public class Libro {
-    public Libro() {
-    }
+    public Libro() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +27,12 @@ public class Libro {
     @Column
     private String autor;
 
-    @OneToMany
-    @JoinColumn(name = "categoria_id")
+    @ManyToMany
+    @JoinTable(
+        name = "libro_categoria",
+        joinColumns = @JoinColumn(name = "libro_id"),
+        inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
     private List<Categoria> cate;
 
     @Column(name = "usuarioId")
@@ -42,5 +45,4 @@ public class Libro {
     @JoinColumn(name = "usuarioId", insertable = false, updatable = false)
     @JsonIgnore
     private Usuario duenio;
-
 }

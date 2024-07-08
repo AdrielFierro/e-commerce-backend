@@ -1,15 +1,18 @@
 // UsuarioController.java
 package com.uade.tpo.tpobackend.controllers;
 
+import com.uade.tpo.tpobackend.controllers.config.JwtService;
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.entity.Venta;
 import com.uade.tpo.tpobackend.service.UsuarioService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +22,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-
+    @Autowired
+    private JwtService jwts;
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable int id) {
         Usuario usuario = usuarioService.findById(id);
@@ -72,4 +76,14 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/buscarId")
+    public ResponseEntity<?> obtenerIdUsuarioPorNombre(@RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            authorizationHeader = authorizationHeader.substring(7); // Eliminar "Bearer "
+            int idusuario = jwts.extractId(authorizationHeader);
+            return ResponseEntity.ok(Map.of("id", idusuario));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener el ID del usuario");
+        }
+    }
 }

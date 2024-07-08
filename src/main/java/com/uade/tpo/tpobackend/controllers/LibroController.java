@@ -33,13 +33,6 @@ public class LibroController {
         return libroService.getLibros();
     }
 
-    @GetMapping("/test")
-    public int test(@RequestHeader("Authorization") String authorizationHeader) {
-        authorizationHeader = authorizationHeader.substring(7);
-        int idusuario = jwts.extractId(authorizationHeader);
-        return idusuario;
-        // return authorizationHeader;
-    }
 
     @PutMapping("/{libro_id}")
     public ResponseEntity<Libro> actualizarLibro(@PathVariable int libro_id,
