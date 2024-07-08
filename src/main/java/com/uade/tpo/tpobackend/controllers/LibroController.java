@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Map;
@@ -80,6 +81,27 @@ public class LibroController {
                 .collect(Collectors.toList());
 
         return filtro;
+    }
+
+    @GetMapping("/misLibros")
+    public List<Integer> getMisLibros(@RequestHeader("Authorization") String authorizationHeader) {
+        List<Libro> LibrosAll = libroService.getLibros();
+        authorizationHeader = authorizationHeader.substring(7);
+        int idusuario = jwts.extractId(authorizationHeader);
+
+        List<Libro> librosFiltrados = LibrosAll.stream()
+                .filter(libro -> libro.getUsuarioId() == idusuario)
+                .collect(Collectors.toList());
+
+        List<Integer> idLibrosFiltrados = new ArrayList<>();
+
+        for (Libro l : librosFiltrados) {
+
+            idLibrosFiltrados.add(l.getLibro_id());
+
+        }
+
+        return idLibrosFiltrados;
     }
 
     @GetMapping("/autor/{autor}")
