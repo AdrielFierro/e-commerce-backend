@@ -12,4 +12,6 @@ public interface VentaService {
 
     Venta crearVenta(Venta venta);
 
+    void setPrecioTotal(int ventaid, double precioTotal);
+
 }
