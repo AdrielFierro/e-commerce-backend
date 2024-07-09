@@ -5,6 +5,19 @@ import lombok.Data;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+
+// import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Data
 @Entity
 public class Venta {
@@ -15,14 +28,18 @@ public class Venta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int venta_id;
 
-    @Column
-    private int comprador_ID;
+    @Column(name = "compradorid")
+    private int compradorid;
 
-    @Column
-    private int vendedor_ID;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "compradorid", insertable = false, updatable = false)
+    @JsonIgnore
+    private Usuario comprador;
 
-    @OneToMany
-    @JoinColumn(name = "venta_id")
-    private List<Libro> libros;
+    // @Column
+    // private double precioTotal;
+
+    @OneToMany(mappedBy = "ventadueña")
+    private List<cantlibros> cantlibros;
 
 }

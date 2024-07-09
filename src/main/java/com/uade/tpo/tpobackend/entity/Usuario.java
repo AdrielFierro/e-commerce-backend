@@ -1,5 +1,6 @@
 package com.uade.tpo.tpobackend.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -47,8 +48,7 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "duenio")
     private List<Libro> librosPublicados;
 
-    @OneToMany
-    @JoinColumn(name = "venta_id")
+    @OneToMany(mappedBy = "comprador")
     private List<Venta> ventas;// -
 
     @Override

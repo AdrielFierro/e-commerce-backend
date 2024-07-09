@@ -4,6 +4,7 @@ package com.uade.tpo.tpobackend.service;
 import com.uade.tpo.tpobackend.entity.Categoria;
 import com.uade.tpo.tpobackend.exceptions.CategoryDuplicateException;
 import com.uade.tpo.tpobackend.repository.CategoriaRepository;
+import com.uade.tpo.tpobackend.repository.LibroRepository;
 import com.uade.tpo.tpobackend.util.Utils;
 
 import java.util.List;
@@ -17,11 +18,6 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
-
-    @Override
-    public Categoria findById(int categoria_id) {
-        return categoriaRepository.findById(categoria_id).orElse(null);
-    }
 
     @Override
     public Categoria crearCategoria(Categoria categoria) throws CategoryDuplicateException {
@@ -55,6 +51,16 @@ public class CategoriaServiceImpl implements CategoriaService {
             Utils.copyNonNullProperties(categoriaActualizada, categoriaExistente);
             return categoriaRepository.save(categoriaExistente);
         }).orElse(null);
+    }
+
+    @Override
+    public Categoria findByNombre(String nombre) {
+        return categoriaRepository.findByNombre(nombre).orElse(null);
+    }
+
+    @Override
+    public Categoria findById(int categoria_id) {
+        return categoriaRepository.findById(categoria_id).orElse(null);
     }
 
 }

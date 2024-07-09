@@ -8,7 +8,8 @@ import java.util.List;
 @Entity
 public class Categoria {
 
-    public Categoria() {}
+    public Categoria() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +21,6 @@ public class Categoria {
     @Column
     private String descripcion;
 
-    @ManyToMany(mappedBy = "cate")
+    @ManyToMany
     private List<Libro> libros;
 }

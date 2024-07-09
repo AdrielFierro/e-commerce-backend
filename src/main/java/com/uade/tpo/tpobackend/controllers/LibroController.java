@@ -34,7 +34,6 @@ public class LibroController {
         return libroService.getLibros();
     }
 
-
     @PutMapping("/{libro_id}")
     public ResponseEntity<Libro> actualizarLibro(@PathVariable int libro_id,
             @RequestBody Libro libroActualizado, @RequestHeader("Authorization") String authorizationHeader)
@@ -83,8 +82,8 @@ public class LibroController {
         return filtro;
     }
 
-    @GetMapping("/misLibros")
-    public List<Integer> getMisLibros(@RequestHeader("Authorization") String authorizationHeader) {
+    @GetMapping("/mislibros")
+    public List<Libro> getMisLibros(@RequestHeader("Authorization") String authorizationHeader) {
         List<Libro> LibrosAll = libroService.getLibros();
         authorizationHeader = authorizationHeader.substring(7);
         int idusuario = jwts.extractId(authorizationHeader);
@@ -101,7 +100,7 @@ public class LibroController {
 
         }
 
-        return idLibrosFiltrados;
+        return librosFiltrados;
     }
 
     @GetMapping("/autor/{autor}")
@@ -126,6 +125,7 @@ public class LibroController {
         if (nuevoLibro == null) {
             throw new LibroInexistenteException();
         }
+
         return ResponseEntity.created(URI.create("/libros/" + nuevoLibro.getLibro_id())).body(nuevoLibro);
     }
 
