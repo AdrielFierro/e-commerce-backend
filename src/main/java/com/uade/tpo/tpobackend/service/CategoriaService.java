@@ -16,4 +16,7 @@ public interface CategoriaService {
     Categoria actualizarCategoria(int categoria_id, Categoria categoriaActualizada);
 
     Categoria actualizarParcialmenteCategoria(int categoria_id, Categoria categoriaActualizada);
+
+    Categoria findByNombre(String nombre);
+
 }

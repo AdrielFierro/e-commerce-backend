@@ -2,6 +2,7 @@
 package com.uade.tpo.tpobackend.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import com.uade.tpo.tpobackend.entity.Categoria;
 import com.uade.tpo.tpobackend.service.CategoriaService;
@@ -20,12 +21,31 @@ public class CategoriaController {
 
     @GetMapping
     public List<Categoria> obtenerCategorias() {
-        return categoriaService.getCategorias();
+        List<Categoria> catShow = categoriaService.getCategorias();
+
+        // for (Categoria categoria : catShow) {
+
+        // categoria.setLibros(null);
+
+        // }
+
+        return catShow;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Categoria> obtenerCategoriaPorId(@PathVariable int id) {
         Categoria categoria = categoriaService.findById(id);
+        if (categoria != null) {
+            return ResponseEntity.ok(categoria);
+        } else {
+            return ResponseEntity.notFound().build(); // recurso solicitado no se encontró en el servidor, construye una
+                                                      // respuesta HTTP con un cuerpo vacío y un código de estado 404
+        }
+    }
+
+    @GetMapping("/nombre")
+    public ResponseEntity<Categoria> obtenerCategoriaPorNombre(@RequestBody String nombre) {
+        Categoria categoria = categoriaService.findByNombre(nombre);
         if (categoria != null) {
             return ResponseEntity.ok(categoria);
         } else {
@@ -68,4 +88,5 @@ public class CategoriaController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }
