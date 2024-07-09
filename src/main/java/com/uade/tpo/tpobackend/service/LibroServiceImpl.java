@@ -62,4 +62,18 @@ public class LibroServiceImpl implements LibroService {
         return libro.getDuenio();
     }
 
+    @Override
+    public void venderLibros(int libroid, int cantArestar) {
+
+        Optional<Libro> LibroOptional = LibroRepository.findById(libroid);
+        if (LibroOptional.isPresent()) {
+            Libro libro = LibroOptional.get();
+            int stockLibro = libro.getStock();
+            stockLibro = stockLibro - cantArestar;
+            libro.setStock(stockLibro);
+            LibroRepository.save(libro);
+        }
+
+    }
+
 }

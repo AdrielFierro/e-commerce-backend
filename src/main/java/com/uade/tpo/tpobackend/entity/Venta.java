@@ -36,8 +36,8 @@ public class Venta {
     @JsonIgnore
     private Usuario comprador;
 
-    // @Column
-    // private double precioTotal;
+    @Column
+    private double precioTotal;
 
     @OneToMany(mappedBy = "ventadueña")
     private List<cantlibros> cantlibros;
