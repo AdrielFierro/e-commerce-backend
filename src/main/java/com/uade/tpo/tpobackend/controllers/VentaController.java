@@ -64,15 +64,11 @@ public class VentaController {
             @RequestHeader("Authorization") String authorizationHeader) throws UsuarioNoEncontradoException {
 
         boolean stockSuf = true;
-
         for (ObjVenta ov : objventa) {
-
             int libroid = ov.idlibro;
             Libro libro = libroService.getLibroById(libroid);
-
             int stockLibro = libro.getStock();
             int cantAcomprarLibro = ov.cantidad;
-
             if (stockLibro < cantAcomprarLibro) {
                 throw new RuntimeException("no hay stock suficiente para el libro " + libro.getNombre());
             }
@@ -95,6 +91,8 @@ public class VentaController {
 
             double precioTotal = 0;
 
+            int totalLibros = 0;
+
             for (ObjVenta ov : objventa) {
 
                 cantlibros cantaux = new cantlibros();
@@ -108,11 +106,18 @@ public class VentaController {
                 cantaux.setVentaId(idventavacia);
                 cantlibrosService.crearCantLibros(cantaux);
                 cantlibros.add(cantaux);
+                totalLibros = totalLibros + ov.cantidad;
 
                 precioTotal = precioTotal + (libro.getPrecio() * ov.cantidad);
             }
 
-            ventaService.setPrecioTotal(idventavacia, precioTotal);
+            if (totalLibros > 3) {
+                precioTotal = precioTotal - (precioTotal * 0.15);
+                ventaService.setPrecioTotal(idventavacia, precioTotal);
+
+            } else {
+                ventaService.setPrecioTotal(idventavacia, precioTotal);
+            }
 
             return ResponseEntity.status(HttpStatus.CREATED).body(ventaService.findById(idventavacia));
         }
