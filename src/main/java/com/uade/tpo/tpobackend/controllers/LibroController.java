@@ -58,6 +58,32 @@ public class LibroController {
 
     }
 
+    @PutMapping("/stock/{libro_id}")
+    public ResponseEntity<Integer> actualizarStock(@PathVariable int libro_id,
+            @RequestBody int stockAsumar, @RequestHeader("Authorization") String authorizationHeader)
+            throws NoMatchUsuarioException {
+
+        authorizationHeader = authorizationHeader.substring(7);
+        int idusuario = jwts.extractId(authorizationHeader);
+
+        Libro libroAactualizar = libroService.getLibroById(libro_id);
+        int idUsuarioLibro = libroAactualizar.getUsuarioId();
+
+        if (idusuario == idUsuarioLibro) {
+
+            if (libroService.getLibroById(libro_id) != null) {
+                int stocklibro = libroService.sumarStockLibro(libro_id, stockAsumar);
+                return ResponseEntity.ok(stocklibro);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+
+        } else {
+            throw new NoMatchUsuarioException();
+        }
+
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable int id) throws LibroInexistenteException {
         Libro libro = libroService.getLibroById(id);
@@ -120,6 +146,7 @@ public class LibroController {
         authorizationHeader = authorizationHeader.substring(7);
 
         libro.setUsuarioId(jwts.extractId(authorizationHeader));
+        // libro.setImagen(null);
 
         Libro nuevoLibro = libroService.createLibro(libro);
         if (nuevoLibro == null) {
@@ -129,10 +156,23 @@ public class LibroController {
         return ResponseEntity.created(URI.create("/libros/" + nuevoLibro.getLibro_id())).body(nuevoLibro);
     }
 
-    @DeleteMapping("/eliminar/")
-    public void deleteLibroById(@RequestBody Map<String, Integer> requestBody) {
-        int id = requestBody.get("id");
-        libroService.deleteLibroById(id);
+    @DeleteMapping("/eliminar/{libroid}")
+    public void deleteLibroById(@PathVariable int libroid,
+            @RequestHeader("Authorization") String authorizationHeader) throws NoMatchUsuarioException {
+
+        authorizationHeader = authorizationHeader.substring(7);
+
+        int idusuario = jwts.extractId(authorizationHeader);
+
+        int idlibro = libroid;
+        Libro libroAactualizar = libroService.getLibroById(idlibro);
+
+        int idUsuarioLibro = libroAactualizar.getUsuarioId();
+        if (idusuario == idUsuarioLibro) {
+            libroService.deleteLibroById(idlibro);
+        } else {
+            throw new NoMatchUsuarioException();
+        }
     }
 
     @GetMapping("/duenio/{libroid}")

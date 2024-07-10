@@ -23,6 +23,7 @@ import com.uade.tpo.tpobackend.exceptions.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.management.RuntimeErrorException;
 
@@ -63,15 +64,11 @@ public class VentaController {
             @RequestHeader("Authorization") String authorizationHeader) throws UsuarioNoEncontradoException {
 
         boolean stockSuf = true;
-
         for (ObjVenta ov : objventa) {
-
             int libroid = ov.idlibro;
             Libro libro = libroService.getLibroById(libroid);
-
             int stockLibro = libro.getStock();
             int cantAcomprarLibro = ov.cantidad;
-
             if (stockLibro < cantAcomprarLibro) {
                 throw new RuntimeException("no hay stock suficiente para el libro " + libro.getNombre());
             }
@@ -94,6 +91,8 @@ public class VentaController {
 
             double precioTotal = 0;
 
+            int totalLibros = 0;
+
             for (ObjVenta ov : objventa) {
 
                 cantlibros cantaux = new cantlibros();
@@ -107,11 +106,18 @@ public class VentaController {
                 cantaux.setVentaId(idventavacia);
                 cantlibrosService.crearCantLibros(cantaux);
                 cantlibros.add(cantaux);
+                totalLibros = totalLibros + ov.cantidad;
 
                 precioTotal = precioTotal + (libro.getPrecio() * ov.cantidad);
             }
 
-            ventaService.setPrecioTotal(idventavacia, precioTotal);
+            if (totalLibros > 3) {
+                precioTotal = precioTotal - (precioTotal * 0.15);
+                ventaService.setPrecioTotal(idventavacia, precioTotal);
+
+            } else {
+                ventaService.setPrecioTotal(idventavacia, precioTotal);
+            }
 
             return ResponseEntity.status(HttpStatus.CREATED).body(ventaService.findById(idventavacia));
         }
@@ -121,6 +127,28 @@ public class VentaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
+    }
+
+    @GetMapping("/misventas")
+    public List<Venta> getMisVentas(@RequestHeader("Authorization") String authorizationHeader) {
+
+        List<Venta> VentaAll = ventaService.findAll();
+        authorizationHeader = authorizationHeader.substring(7);
+        int idusuario = jwts.extractId(authorizationHeader);
+
+        List<Venta> ventasFiltradas = VentaAll.stream()
+                .filter(venta -> venta.getCompradorId() == idusuario)
+                .collect(Collectors.toList());
+
+        // List<Integer> idLibrosFiltrados = new ArrayList<>();
+
+        // for (Libro l : librosFiltrados) {
+
+        // idLibrosFiltrados.add(l.getLibro_id());
+
+        // }
+
+        return ventasFiltradas;
     }
 
 }
