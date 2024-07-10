@@ -23,6 +23,7 @@ import com.uade.tpo.tpobackend.exceptions.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.management.RuntimeErrorException;
 
@@ -121,6 +122,28 @@ public class VentaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
+    }
+
+    @GetMapping("/misventas")
+    public List<Venta> getMisVentas(@RequestHeader("Authorization") String authorizationHeader) {
+
+        List<Venta> VentaAll = ventaService.findAll();
+        authorizationHeader = authorizationHeader.substring(7);
+        int idusuario = jwts.extractId(authorizationHeader);
+
+        List<Venta> ventasFiltradas = VentaAll.stream()
+                .filter(venta -> venta.getCompradorId() == idusuario)
+                .collect(Collectors.toList());
+
+        // List<Integer> idLibrosFiltrados = new ArrayList<>();
+
+        // for (Libro l : librosFiltrados) {
+
+        // idLibrosFiltrados.add(l.getLibro_id());
+
+        // }
+
+        return ventasFiltradas;
     }
 
 }

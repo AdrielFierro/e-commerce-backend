@@ -58,6 +58,32 @@ public class LibroController {
 
     }
 
+    @PutMapping("/stock/{libro_id}")
+    public ResponseEntity<Integer> actualizarStock(@PathVariable int libro_id,
+            @RequestBody int stockAsumar, @RequestHeader("Authorization") String authorizationHeader)
+            throws NoMatchUsuarioException {
+
+        authorizationHeader = authorizationHeader.substring(7);
+        int idusuario = jwts.extractId(authorizationHeader);
+
+        Libro libroAactualizar = libroService.getLibroById(libro_id);
+        int idUsuarioLibro = libroAactualizar.getUsuarioId();
+
+        if (idusuario == idUsuarioLibro) {
+
+            if (libroService.getLibroById(libro_id) != null) {
+                int stocklibro = libroService.sumarStockLibro(libro_id, stockAsumar);
+                return ResponseEntity.ok(stocklibro);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+
+        } else {
+            throw new NoMatchUsuarioException();
+        }
+
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable int id) throws LibroInexistenteException {
         Libro libro = libroService.getLibroById(id);

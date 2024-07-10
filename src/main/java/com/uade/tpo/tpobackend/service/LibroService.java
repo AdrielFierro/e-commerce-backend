@@ -17,6 +17,8 @@ public interface LibroService {
 
     Libro actualizarLibro(int libro_id, Libro libroActualizado);
 
+    int sumarStockLibro(int libro_id, int stockasumar);
+
     void venderLibros(int libroId, int cantARestar);
 
     Usuario getDuenio(int libro_id);

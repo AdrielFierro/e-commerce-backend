@@ -2,6 +2,7 @@ package com.uade.tpo.tpobackend.service;
 
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.entity.Usuario;
+import com.uade.tpo.tpobackend.exceptions.LibroInexistenteException;
 // import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,19 @@ public class LibroServiceImpl implements LibroService {
             libro.setStock(stockLibro);
             LibroRepository.save(libro);
         }
+
+    }
+
+    @Override
+    public int sumarStockLibro(int libro_id, int stockasumar) {
+
+        Optional<Libro> LibroOptional = LibroRepository.findById(libro_id);
+        Libro libro = LibroOptional.get();
+        int stockLibro = libro.getStock();
+        stockLibro = stockLibro + stockasumar;
+        libro.setStock(stockLibro);
+        LibroRepository.save(libro);
+        return stockLibro;
 
     }
 
