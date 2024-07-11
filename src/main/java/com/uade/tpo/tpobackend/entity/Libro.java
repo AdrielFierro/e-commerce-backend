@@ -52,9 +52,8 @@ public class Libro {
     @Column
     private int stock;
 
-    @Lob
-    @Column(name = "BLOB_IMAGE")
-    private byte[] imagen;
+    @Column(name = "imagen_id")
+    private long imagen;
 
     // @ManyToMany(cascade = CascadeType.MERGE)
     // @JoinTable(name = "venta_libro", joinColumns = @JoinColumn(name =
