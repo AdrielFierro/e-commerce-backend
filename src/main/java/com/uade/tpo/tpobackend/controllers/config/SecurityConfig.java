@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/error/**").permitAll()
                         .requestMatchers("/usuarios/{id}/libros").permitAll()
-                        .requestMatchers("/usuarios/**", "/ventas/**").hasAnyAuthority(Role.ADMIN.name())
+                        .requestMatchers("/usuarios/**", "/ventas/**").hasAnyAuthority(Role.ADMIN.name(),Role.USER.name())
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers("/libros/**", "/categorias/**")
                         .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
