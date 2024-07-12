@@ -24,4 +24,6 @@ public interface UsuarioService {
     Usuario actualizarParcialmenteUsuario(int id, Usuario usuarioActualizado);
 
     Integer obtenerIdUsuarioPorNombre(String nombre);
+    
+    List<Usuario> obtenerTodosLosUsuarios();
 }
