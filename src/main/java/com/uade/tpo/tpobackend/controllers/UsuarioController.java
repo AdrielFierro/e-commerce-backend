@@ -41,11 +41,11 @@ public class UsuarioController {
         return usuarioService.findByNombre(nombre);
     }
 
-    // @PostMapping
-    // public Usuario crearUsuario(@RequestBody Usuario usuario) {
-    // System.out.println(usuario);
-    // return usuarioService.crearUsuario(usuario);
-    // }
+    @GetMapping("/all")
+    public ResponseEntity<List<Usuario>> obtenerTodosLosUsuarios() {
+        List<Usuario> usuarios = usuarioService.obtenerTodosLosUsuarios();
+        return ResponseEntity.ok(usuarios);
+    }
 
     @GetMapping("/{id}/ventas")
     public List<Venta> obtenerVentas(@PathVariable int id) {
