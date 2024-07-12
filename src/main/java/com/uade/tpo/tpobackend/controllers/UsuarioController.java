@@ -6,8 +6,11 @@ import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.entity.Role;
 import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.entity.Venta;
+import com.uade.tpo.tpobackend.service.LibroService;
 import com.uade.tpo.tpobackend.service.UsuarioService;
+import com.uade.tpo.tpobackend.service.VentaService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,6 +26,10 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private LibroService libroService;
+    @Autowired
+    private VentaService ventaService;
     @Autowired
     private JwtService jwts;
 
@@ -86,12 +93,53 @@ public class UsuarioController {
         }
     }
 
+    @DeleteMapping("/eliminar/{userid}")
+    public ResponseEntity<Usuario> deleteUsuario(@PathVariable int userid) {
+        Usuario usuario = usuarioService.findById(userid);
+        if (usuario != null) {
+
+            List<Venta> ventasUser = usuario.getVentas();
+
+            for (Venta v : ventasUser) {
+                int vid = v.getVenta_id();
+
+                ventaService.deleteVentaById(vid);
+
+            }
+
+            List<Libro> librosUser = usuario.getLibrosPublicados();
+            for (Libro l : librosUser) {
+
+                int lid = l.getLibro_id();
+                libroService.deleteLibroById(lid);
+            }
+
+            usuarioService.deleteUsuarioById(userid);
+            return ResponseEntity.ok(usuario);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<Usuario> actualizarParcialmenteUsuario(@PathVariable int id,
             @RequestBody Usuario usuarioActualizado) {
         Usuario usuario = usuarioService.actualizarParcialmenteUsuario(id, usuarioActualizado);
         if (usuario != null) {
             return ResponseEntity.ok(usuario);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/rol/{id}")
+    public ResponseEntity<Role> actualizarRol(@PathVariable int id) {
+
+        Usuario usuario = usuarioService.findById(id);
+
+        if (usuario != null) {
+            Role rol = usuarioService.rolechange(id);
+            return ResponseEntity.ok(rol);
         } else {
             return ResponseEntity.notFound().build();
         }

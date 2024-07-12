@@ -1,8 +1,10 @@
 package com.uade.tpo.tpobackend.service;
 
 import com.uade.tpo.tpobackend.entity.Libro;
+import com.uade.tpo.tpobackend.entity.Role;
 import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.entity.Venta;
+import com.uade.tpo.tpobackend.repository.LibroRepository;
 import com.uade.tpo.tpobackend.repository.UsuarioRepository;
 import com.uade.tpo.tpobackend.util.Utils;
 
@@ -73,5 +75,30 @@ public class UsuarioServiceImpl implements UsuarioService {
         Optional<Usuario> usuarioOptional = usuarioRepository.findByNombre(nombre);
         return usuarioOptional.map(Usuario::getId).orElse(null);
     }
-    
+
+    @Override
+    public void deleteUsuarioById(int userId) {
+
+        usuarioRepository.deleteById(userId);
+
+    }
+
+    @Override
+    public Role rolechange(int userId) {
+
+        Usuario usuario = usuarioRepository.findById(userId).orElse(null);
+
+        if (usuario.getRole() == Role.ADMIN) {
+            usuario.setRole(Role.USER);
+            usuarioRepository.save(usuario);
+            return usuario.getRole();
+        } else {
+            usuario.setRole(Role.ADMIN);
+            usuarioRepository.save(usuario);
+            return usuario.getRole();
+
+        }
+
+    }
+
 }

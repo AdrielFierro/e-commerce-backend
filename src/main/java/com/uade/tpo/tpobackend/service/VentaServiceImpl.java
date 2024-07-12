@@ -44,4 +44,11 @@ public class VentaServiceImpl implements VentaService {
 
     }
 
+    @Override
+    public void deleteVentaById(int ventaId) {
+
+        ventaRepository.deleteById(ventaId);
+
+    }
+
 }

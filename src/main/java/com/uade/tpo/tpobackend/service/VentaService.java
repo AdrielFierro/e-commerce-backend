@@ -14,4 +14,6 @@ public interface VentaService {
 
     void setPrecioTotal(int ventaid, double precioTotal);
 
+    void deleteVentaById(int ventaId);
+
 }

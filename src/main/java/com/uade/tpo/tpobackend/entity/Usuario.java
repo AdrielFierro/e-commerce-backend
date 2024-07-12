@@ -48,7 +48,7 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "duenio")
     private List<Libro> librosPublicados;
 
-    @OneToMany(mappedBy = "comprador")
+    @OneToMany(mappedBy = "comprador", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Venta> ventas;// -
 
     @Override

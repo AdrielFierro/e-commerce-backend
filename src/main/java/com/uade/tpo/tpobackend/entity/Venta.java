@@ -23,7 +23,7 @@ public class Venta {
     private int compradorid;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "compradorid", insertable = false, updatable = false)
+    @JoinColumn(name = "comprador_id", insertable = false, updatable = false)
     @JsonIgnore
     private Usuario comprador;
 

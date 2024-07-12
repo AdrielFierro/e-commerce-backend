@@ -102,6 +102,7 @@ public class VentaController {
                 Libro libro = libroService.getLibroById(libroid);
                 libroService.venderLibros(libro.getLibro_id(), ov.cantidad);
                 cantaux.setLibroid(libroid);
+                cantaux.setNombrelibro(libro.getNombre());
                 cantaux.setCantidad(ov.cantidad);
                 cantaux.setVentaId(idventavacia);
                 cantlibrosService.crearCantLibros(cantaux);

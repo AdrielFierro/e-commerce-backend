@@ -31,4 +31,7 @@ public class cantlibros {
     @Column
     private int libroid;
 
+    @Column
+    private String nombrelibro;
+
 }
