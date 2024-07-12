@@ -38,11 +38,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/error/**").permitAll()
                         .requestMatchers("/usuarios/{id}/libros").permitAll()
-                        .requestMatchers("/usuarios/**", "/ventas/**").hasAnyAuthority(Role.ADMIN.name())
+
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers("/libros/**", "/categorias/**")
                         .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT)
+                        .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST)
                         .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
                         .requestMatchers(HttpMethod.PATCH)
                         .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
@@ -74,4 +76,3 @@ public class SecurityConfig {
         return new CorsFilter(corsConfigurationSource());
     }
 }
-
