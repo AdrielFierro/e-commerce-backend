@@ -89,9 +89,8 @@ public class CategoriaController {
         }
     }
 
-    @DeleteMapping("/borrar/{id}")
-    public ResponseEntity<Categoria> borrarCategoria(@PathVariable int categoria_id,
-            @RequestBody Categoria categoriaActualizada) {
+    @DeleteMapping("/borrar/{categoria_id}")
+    public ResponseEntity<Categoria> borrarCategoria(@PathVariable int categoria_id) {
         Categoria categoria = categoriaService.findById(categoria_id);
         if (categoria != null) {
             categoriaService.borrarCate(categoria_id);

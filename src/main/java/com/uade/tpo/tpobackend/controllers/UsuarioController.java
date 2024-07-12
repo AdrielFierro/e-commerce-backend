@@ -132,7 +132,7 @@ public class UsuarioController {
         }
     }
 
-    @PatchMapping("/rol/{id}")
+    @PutMapping("/rol/{id}")
     public ResponseEntity<Role> actualizarRol(@PathVariable int id) {
 
         Usuario usuario = usuarioService.findById(id);
