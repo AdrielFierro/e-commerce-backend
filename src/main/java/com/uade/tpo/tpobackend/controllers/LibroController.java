@@ -4,6 +4,7 @@ import com.uade.tpo.tpobackend.controllers.config.JwtService;
 import com.uade.tpo.tpobackend.entity.Libro;
 import com.uade.tpo.tpobackend.entity.Usuario;
 import com.uade.tpo.tpobackend.exceptions.LibroInexistenteException;
+import com.uade.tpo.tpobackend.exceptions.LibroMalCreadoException;
 import com.uade.tpo.tpobackend.exceptions.NoMatchUsuarioException;
 import com.uade.tpo.tpobackend.service.LibroService;
 
@@ -142,11 +143,16 @@ public class LibroController {
 
     @PostMapping
     public ResponseEntity<Object> crearLibro(@RequestBody Libro libro,
-            @RequestHeader("Authorization") String authorizationHeader) throws LibroInexistenteException {
+            @RequestHeader("Authorization") String authorizationHeader)
+            throws LibroInexistenteException, LibroMalCreadoException {
         authorizationHeader = authorizationHeader.substring(7);
 
         libro.setUsuarioId(jwts.extractId(authorizationHeader));
         // libro.setImagen(null);
+
+        if (libro.getAutor() == "" || libro.getNombre() == "" || libro.getPrecio() == null) {
+            throw new LibroMalCreadoException();
+        }
 
         Libro nuevoLibro = libroService.createLibro(libro);
         if (nuevoLibro == null) {
