@@ -19,4 +19,6 @@ public interface CategoriaService {
 
     Categoria findByNombre(String nombre);
 
+    void borrarCate(int categoria_id);
+
 }

@@ -38,8 +38,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/error/**").permitAll()
                         .requestMatchers("/usuarios/{id}/libros").permitAll()
-                        .requestMatchers("/usuarios/eliminar/**", "/usuarios/rol/**").hasAnyAuthority(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.GET).permitAll()
+                        .requestMatchers("/usuarios/eliminar/**", "/usuarios/rol/**", "/categoria/borrar/**",
+                                "/categoria")
+                        .hasAnyAuthority(Role.ADMIN.name())
                         .requestMatchers("/libros/**", "/categorias/**")
                         .hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT)

@@ -63,4 +63,11 @@ public class CategoriaServiceImpl implements CategoriaService {
         return categoriaRepository.findById(categoria_id).orElse(null);
     }
 
+    @Override
+    public void borrarCate(int categoria_id) {
+
+        categoriaRepository.deleteById(categoria_id);
+
+    }
+
 }
